@@ -1,0 +1,80 @@
+<div id="comments-list">
+    {{#commentDtos}}
+        <div class="card m-2" id="comments-{{id}}">
+            <div class="card-header">
+                {{nickname}}
+            </div>
+            <div class="card-body">
+                <span id="comment-body-{{id}}">{{body}}</span>
+                <button class="btn btn-sm btn-outline-primary update-btn"
+                        data-comment-id="{{id}}"
+                        data-comment-nickname="{{nickname}}"
+                        data-comment-body="{{body}}"
+                        data-comment-article-id="{{articleId}}"
+                        >수정</button>
+            </div>
+        </div>
+    {{/commentDtos}}
+</div>
+
+
+<!--<script>-->
+<!--{-->
+<!--    const commentUpdateBtns = document.querySelectorAll('.update-btn')-->
+
+<!--    commentUpdateBtns.forEach(btn => {-->
+<!--        btn.addEventListener('click', (event) => {-->
+
+<!--            // 수정 버튼-->
+<!--            const updateBtn = event.target-->
+<!--            const updateBtnId = updateBtn.getAttribute('id')-->
+
+<!--            // body-->
+<!--            const bodyId = 'body-text-' + updateBtnId-->
+<!--            const commentBody = document.getElementById(bodyId).innerText-->
+
+<!--            console.log(`${updateBtnId}`)-->
+<!--            console.log(commentBody)-->
+<!--        })-->
+<!--    })-->
+<!--}-->
+<!--</script>-->
+
+<script>
+{
+    // 수정 버튼들 가져오기 (변수 선언)
+    const commentUpdateBtns = document.querySelectorAll(".update-btn");
+    // 수정 버튼들 각 이벤트 주기
+    commentUpdateBtns.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            const updateBtn = event.srcElement;
+
+            // 이벤트를 담당하는 버튼의 데이터 가져오기
+            const commentId = updateBtn.getAttribute("data-comment-id");
+            const commentBody = updateBtn.getAttribute("data-comment-body");
+
+            // input tag로 변경
+            const bodyId = "comment-body-" + commentId
+            const comment = document.getElementById(bodyId);
+            comment.innerHTML
+                = '<input id="' + bodyId + '" value="' + commentBody +'">';
+
+
+            // input tag에서 [수정 완료] 버튼으로 바꾸기
+            btn.innerHTML = "수정 완료";
+
+            // btn의 id 추가
+            btn.id = `${commentId}`;
+            const commentUpdatedBtn = document.getElementById(`${commentId}`);
+            console.log(commentUpdatedBtn);
+            console.log(btn);
+
+        });
+    });
+
+
+}
+
+
+
+</script>
